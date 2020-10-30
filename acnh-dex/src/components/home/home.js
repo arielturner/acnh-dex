@@ -1,15 +1,9 @@
 import React from 'react';
-import ToCatch from '../to-catch/to-catch';
-import Caught from '../caught/caught';
-import Drawer from '@material-ui/core/Drawer';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import { Drawer, List, Toolbar, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import { Switch, Route, Link, useParams } from "react-router-dom";
+import { Caught, ToCatch } from '../';
 import './home.css';
 
 export default function Home() {

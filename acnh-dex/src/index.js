@@ -2,14 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/app';
-import SharedSnackbarProvider from './components/shared-snackbar/shared-snackbar-context'
+import GlobalContextProvider from './providers/global-context'
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render((
   <BrowserRouter>
-    <SharedSnackbarProvider>
+    <GlobalContextProvider>
       <App />
-    </SharedSnackbarProvider>
+    </GlobalContextProvider>
   </BrowserRouter>
 ), document.getElementById('root')
 );

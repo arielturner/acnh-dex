@@ -1,17 +1,9 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+import { IconButton, Typography, Toolbar, CssBaseline, AppBar, createMuiTheme, ThemeProvider } from '@material-ui/core';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
-import './app.css';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
-
-import Welcome from '../welcome/welcome';
-import Home from '../home/home';
+import { Welcome, Home } from '../';
+import './app.css';
 
 const lightTheme = createMuiTheme();
 
