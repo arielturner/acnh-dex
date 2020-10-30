@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app/app';
+import SharedSnackbarProvider from './components/shared-snackbar/shared-snackbar-context'
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render((
   <BrowserRouter>
-    <App /> {/* The various pages will be displayed by the `Main` component. */}
+    <SharedSnackbarProvider>
+      <App />
+    </SharedSnackbarProvider>
   </BrowserRouter>
-  ), document.getElementById('root')
+), document.getElementById('root')
 );

@@ -1,3 +1,7 @@
+.app-bar {
+  z-index: 1201 !important;
+}
+
 h6 {
   flex: 1;
 }
