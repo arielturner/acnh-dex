@@ -1,0 +1,44 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -1em;
+}
+
+.card {
+  width: 300px;
+  margin: 1em 1em 0 0;
+}
+
+.card-header {
+  height: 72px;
+}
+
+.collectible-icon {
+  height: 128px;
+  background-size: contain !important;
+}
+
+.MuiAccordionDetails-root {
+  padding: 0px 16px 16px !important;
+}
+
+.MuiCardHeader-root {
+  padding: 10px 0 0 12px !important;
+}
+
+.MuiAvatar-root {
+  width: 64px !important;
+  height: 64px !important;
+}
+
+div.MuiCardHeader-root.card-header > div.MuiCardHeader-content > span  {
+  font-size: 1.25rem !important;
+}
+
+div.MuiCardHeader-root.card-header > div.MuiCardHeader-action > button {
+  padding: 22px 34px 28px 28px;
+}
+
+.MuiCardContent-root:last-child {
+  padding-bottom: 16px !important;
+}

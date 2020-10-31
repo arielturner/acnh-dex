@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { IconButton, Snackbar } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
-export const GlobalContext = React.createContext({
-  username: "anon",
-  updateContext: null,
-  setSnackbarMessage: null
-});
+export const GlobalContext = React.createContext();
 
-export default function GlobalContextProvider({children}) {
+export default function GlobalContextProvider({ children }) {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
 
@@ -17,9 +13,7 @@ export default function GlobalContextProvider({children}) {
     setOpen(true);
   }
 
-  const [context, setContext] = React.useState({
-    username: "",
-    updateContext: newState => setContext({ ...newState }),
+  const [context] = React.useState({
     setSnackbarMessage
   });
 
@@ -38,7 +32,7 @@ export default function GlobalContextProvider({children}) {
           horizontal: 'center',
         }}
         open={open}
-        autoHideDuration={5000}
+        autoHideDuration={6000}
         onClose={handleClose}
         message={message}
         action={[

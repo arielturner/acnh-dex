@@ -5,8 +5,7 @@ import { GlobalContext } from "../../providers/global-context";
 import './welcome.css';
 
 export default function Welcome() {
-  const globalContext = React.useContext(GlobalContext);
-
+  const { setSnackbarMessage } = React.useContext(GlobalContext);
   const [name, setName] = React.useState('');
   const [redirect, setRedirect] = React.useState(false);
 
@@ -14,14 +13,15 @@ export default function Welcome() {
     setName(e.target.value);
   }
 
-  const handleSubmit = () => {
-    var trimmedName = name.trim();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    var trimmedName = name.trim();
     if (trimmedName.length && trimmedName.match("^[a-zA-Z0-9]*$") != null) {
       setName(trimmedName);
       setRedirect(true);
     } else {
-      globalContext.setSnackbarMessage('Name is invalid.');
+      setSnackbarMessage('Name is invalid');
     }
   }
 
@@ -36,7 +36,7 @@ export default function Welcome() {
               <h2>Consumes <a href="http://acnhapi.com/" target="_blank" rel="noreferrer">ACNH API</a> for collectible metadata.</h2>
             </div>
             <div>Choose your address below.</div>
-            <form className="top-margin flex-center flex-column" autoComplete="off" action="#" onSubmit={handleSubmit}>
+            <form className="top-margin flex-center flex-column" autoComplete="off" onSubmit={handleSubmit}>
               <div className="flex-center">
                 <span>http://localhost:3000/</span>
                 <TextField id="name-input" label="Name" variant="outlined" value={name} onChange={handleChange} />
