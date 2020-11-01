@@ -1,0 +1,14 @@
+.MuiCircularProgress-colorSecondary {
+  color: #00b0ff !important;
+}
+
+.spinner-container {
+  display: flex;
+  position: absolute;
+  top: 64px;
+  left: 240px;
+  height: calc(100vh - 55px);
+  width: calc(100vw - 240px);
+  justify-content: center;
+  align-items: center;
+}

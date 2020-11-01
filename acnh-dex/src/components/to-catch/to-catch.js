@@ -14,7 +14,6 @@ export default class ToCatch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
       value: 0,
       fish: [],
       bugs: [],
@@ -27,8 +26,9 @@ export default class ToCatch extends React.Component {
   };
 
   componentDidMount() {
+    const { setSnackbarMessage, toggleLoadingSpinner } = this.context;
+    toggleLoadingSpinner(true);
     let component = this;
-    const { setSnackbarMessage } = this.context;
 
     Promise.all([axios.get(`${baseUrl}/fish`), axios.get(`${baseUrl}/bugs`), axios.get(`${baseUrl}/sea`)])
       .then(function (values) {
@@ -38,7 +38,7 @@ export default class ToCatch extends React.Component {
         setSnackbarMessage(err.toString());
       })
       .finally(() => {
-        this.setState({ loading: false });
+        toggleLoadingSpinner(false);
       });
   }
 
@@ -61,34 +61,28 @@ export default class ToCatch extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loading ?
-          <div className="spinner-container">
-            <CircularProgress color="secondary" />
-          </div>
-          :
-          <Paper>
-            <Tabs
-              value={this.state.value}
-              onChange={this.handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              centered
-            >
-              <Tab label="Bugs" />
-              <Tab label="Fish" />
-              <Tab label="Sea Creatures" />
-            </Tabs>
-            {this.state.value === 0 && (
-              <AvailableCollectibles collectibles={this.state.bugs} />
-            )}
-            {this.state.value === 1 && (
-              <AvailableCollectibles collectibles={this.state.fish} />
-            )}
-            {this.state.value === 2 && (
-              <AvailableCollectibles collectibles={this.state.seaCreatures} />
-            )}
-          </Paper>
-        }
+        <Paper>
+          <Tabs
+            value={this.state.value}
+            onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            centered
+          >
+            <Tab label="Bugs" />
+            <Tab label="Fish" />
+            <Tab label="Sea Creatures" />
+          </Tabs>
+          {this.state.value === 0 && (
+            <AvailableCollectibles collectibles={this.state.bugs} />
+          )}
+          {this.state.value === 1 && (
+            <AvailableCollectibles collectibles={this.state.fish} />
+          )}
+          {this.state.value === 2 && (
+            <AvailableCollectibles collectibles={this.state.seaCreatures} />
+          )}
+        </Paper>
       </div>
     );
   }

@@ -1,12 +1,18 @@
 import React from 'react';
-import { IconButton, Snackbar } from '@material-ui/core';
+import { IconButton, Snackbar, CircularProgress } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import './global-context.css';
 
 export const GlobalContext = React.createContext();
 
 export default function GlobalContextProvider({ children }) {
+  const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
+
+  const toggleLoadingSpinner = (value) => {
+    setLoading(value);
+  }
 
   const setSnackbarMessage = (text) => {
     setMessage(text);
@@ -14,6 +20,7 @@ export default function GlobalContextProvider({ children }) {
   }
 
   const [context] = React.useState({
+    toggleLoadingSpinner,
     setSnackbarMessage
   });
 
@@ -26,6 +33,15 @@ export default function GlobalContextProvider({ children }) {
   return (
     <GlobalContext.Provider value={context}>
       {children}
+
+      {loading ?
+        <div className="spinner-container">
+          <CircularProgress color="secondary" />
+        </div>
+        :
+        null
+      }
+
       <Snackbar
         anchorOrigin={{
           vertical: 'top',
