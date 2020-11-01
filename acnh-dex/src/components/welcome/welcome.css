@@ -9,6 +9,10 @@ h1, h2 {
   font-weight: normal;
 }
 
+a {
+  color: #00b0ff;
+}
+
 .content {
   min-height: calc(100vh - 64px);
   position: absolute;
