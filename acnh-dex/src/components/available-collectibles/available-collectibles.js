@@ -1,8 +1,7 @@
 import React from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Card, CardContent, Avatar, CardHeader, IconButton } from '@material-ui/core';
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Card, CardContent, Avatar, CardHeader, Checkbox } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import './available-collectibles.css';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 export default function AvailableCollectibles(props) {
   const times = [...new Set(props.collectibles.map(c => c.availability.time))];
@@ -33,9 +32,10 @@ export default function AvailableCollectibles(props) {
                               <Avatar className="collectible-icon" alt={item.name['name-USen']} src={item.icon_uri} />
                             }
                             action={
-                              <IconButton color="secondary" aria-label="Add Collectible">
-                                <AddCircleIcon fontSize="large" />
-                              </IconButton>
+                              <Checkbox
+                                defaultChecked
+                                color="secondary"
+                              />
                             }
                             title={capitalizeString(item.name['name-USen'])}>
                           </CardHeader>

@@ -3,12 +3,12 @@
 }
 
 .drawer {
-  width: 240px;
+  width: 200px;
   flex-shrink: 0;
 }
 
 .drawer-paper {
-  width: 240px;
+  width: 200px;
 }
 
 .drawer-container {
@@ -17,5 +17,5 @@
 
 .drawer-content {
   flex-grow: 1;
-  padding: 1.5em;
+  padding: 1em;
 }
