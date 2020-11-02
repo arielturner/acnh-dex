@@ -9,12 +9,12 @@ export default function Welcome() {
   const [name, setName] = React.useState('');
   const [redirect, setRedirect] = React.useState(false);
 
-  const handleChange = (e) => {
-    setName(e.target.value);
+  const handleChange = (event) => {
+    setName(event.target.value);
   }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     var trimmedName = name.trim();
     if (trimmedName.length && trimmedName.match("^[a-zA-Z0-9]*$") != null) {
@@ -38,7 +38,7 @@ export default function Welcome() {
             <div>Choose your address below.</div>
             <form className="top-margin flex-center flex-column" autoComplete="off" onSubmit={handleSubmit}>
               <div className="flex-center">
-                <span>http://localhost:3000/</span>
+                <span className="url">http://localhost:3000/</span>
                 <TextField id="name-input" label="Name" variant="outlined" value={name} onChange={handleChange} />
               </div>
               <Button type="submit" className="top-margin" variant="contained" color="primary">Go</Button>

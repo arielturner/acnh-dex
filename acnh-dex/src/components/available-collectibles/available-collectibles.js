@@ -24,12 +24,12 @@ export default function AvailableCollectibles(props) {
               <AccordionDetails>
                 <div className="card-container">
                   {
-                    props.collectibles.filter(c => c.availability.time === time).map((item, i) => {
+                    props.collectibles.filter(c => c.availability.time === time).map((collectible, j) => {
                       return (
-                        <Card key={i} className="card" variant="outlined">
+                        <Card key={j} className="card" variant="outlined">
                           <CardHeader className="card-header"
                             avatar={
-                              <Avatar className="collectible-icon" alt={item.name['name-USen']} src={item.icon_uri} />
+                              <Avatar className="collectible-icon" alt={collectible.name['name-USen']} src={collectible.icon_uri} />
                             }
                             action={
                               <Checkbox
@@ -37,21 +37,21 @@ export default function AvailableCollectibles(props) {
                                 color="secondary"
                               />
                             }
-                            title={capitalizeString(item.name['name-USen'])}>
+                            title={capitalizeString(collectible.name['name-USen'])}>
                           </CardHeader>
                           <CardContent>
                             <Typography color="textSecondary">
-                              {item.availability['location']}
+                              {collectible.availability['location']}
                             </Typography>
                             <Typography variant="body2" component="p">
-                              {item.availability['rarity']}
+                              {collectible.availability['rarity']}
                             </Typography>
                             <Typography variant="body2" component="p">
-                              {item.speed}
+                              {collectible.speed}
                             </Typography>
-                            {item.shadow && (
+                            {collectible.shadow && (
                               <Typography variant="body2" component="p">
-                                {item.shadow} Shadow
+                                {collectible.shadow} Shadow
                               </Typography>
                             )}
                           </CardContent>

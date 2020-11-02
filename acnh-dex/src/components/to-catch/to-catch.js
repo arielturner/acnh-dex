@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { GlobalContext } from "../../providers/global-context";
-import { CircularProgress, Paper, Tabs, Tab } from '@material-ui/core';
+import { Paper, Tabs, Tab } from '@material-ui/core';
 import AvailableCollectibles from '../available-collectibles/available-collectibles';
 import './to-catch.css';
 

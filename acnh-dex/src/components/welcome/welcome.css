@@ -40,3 +40,7 @@ a {
 .top-margin {
   margin-top: 1em !important;
 }
+
+.url {
+  margin-right: .25em;
+}
