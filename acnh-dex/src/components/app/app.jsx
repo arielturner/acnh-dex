@@ -1,10 +1,16 @@
-import React from 'react';
-import { IconButton, Typography, Toolbar, CssBaseline, AppBar, createMuiTheme, ThemeProvider, Tooltip } from '@material-ui/core';
-import { teal, lightBlue } from '@material-ui/core/colors';
-import InvertColorsIcon from '@material-ui/icons/InvertColors';
-import { Switch, Route } from 'react-router-dom';
-import { Welcome, Home } from '../';
 import './app.css';
+import React from 'react';
+import teal from '@material-ui/core/colors/teal';
+import lightBlue from '@material-ui/core/colors/lightBlue';
+import Switch from 'react-router-dom/Switch';
+import Route from 'react-router-dom/Route';
+import InvertColorsIcon from '@material-ui/icons/InvertColors';
+import {
+  IconButton, Typography, Toolbar, CssBaseline, AppBar, createMuiTheme, ThemeProvider, Tooltip,
+} from '@material-ui/core';
+import {
+  Welcome, Home,
+} from '..';
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -27,7 +33,7 @@ export default function App() {
   const handleClick = () => {
     setTheme(theme === darkTheme ? lightTheme : darkTheme);
     localStorage.setItem('theme', theme.palette.type);
-  }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -48,8 +54,8 @@ export default function App() {
       <main>
         <Toolbar />
         <Switch>
-          <Route exact path='/' component={Welcome}></Route>
-          <Route path='/:id' component={Home}></Route>
+          <Route exact path="/" component={Welcome} />
+          <Route path="/:id" component={Home} />
         </Switch>
       </main>
     </ThemeProvider>
