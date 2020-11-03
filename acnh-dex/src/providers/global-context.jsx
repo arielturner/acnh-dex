@@ -1,8 +1,8 @@
+import './global-context.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { IconButton, Snackbar, CircularProgress } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import './global-context.css';
 
 export const GlobalContext = React.createContext();
 

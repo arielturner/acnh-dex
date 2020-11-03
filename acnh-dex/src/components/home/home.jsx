@@ -1,4 +1,4 @@
-import './home.css';
+import './home.scss';
 import React from 'react';
 import {
   Drawer, List, Toolbar, ListItem, ListItemIcon, ListItemText,

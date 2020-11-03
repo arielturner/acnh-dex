@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Paper, Tabs, Tab } from '@material-ui/core';
 import { GlobalContext } from '../../providers/global-context';
 import AvailableCollectibles from '../available-collectibles/available-collectibles';
-import './to-catch.css';
+import './to-catch.scss';
 
 const baseUrl = 'http://acnhapi.com/v1a';
 const currentMonth = new Date().getMonth() + 1;

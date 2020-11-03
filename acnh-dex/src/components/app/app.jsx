@@ -5,7 +5,7 @@ import InvertColorsIcon from '@material-ui/icons/InvertColors';
 import {
   IconButton, Typography, Toolbar, CssBaseline, AppBar, createMuiTheme, ThemeProvider, Tooltip,
 } from '@material-ui/core';
-import './app.css';
+import './app.scss';
 import Welcome from '../welcome/welcome';
 import Home from '../home/home';
 

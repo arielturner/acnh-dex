@@ -1,17 +1,16 @@
-import './available-collectibles.css';
+import './available-collectibles.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   Accordion, AccordionSummary, AccordionDetails, Typography, Card, CardContent, Avatar, CardHeader,
-  Checkbox,
+  Checkbox, Tooltip,
 } from '@material-ui/core';
+import capitalizeString from '../../utils/string-utils';
 
 function AvailableCollectibles(props) {
   const { collectibles } = props;
   const times = [...new Set(collectibles.map((c) => c.availability.time))];
-
-  const capitalizeString = (str) => str.toLowerCase().replace(/^\w|\s\w/g, (letter) => letter.toUpperCase());
 
   return (
     <div>
@@ -31,9 +30,11 @@ function AvailableCollectibles(props) {
                         avatar={
                           <Avatar className="collectible-icon" alt={collectible.name['name-USen']} src={collectible.icon_uri} />
                         }
-                        action={
-                          <Checkbox defaultChecked color="secondary" />
-                        }
+                        action={(
+                          <Tooltip title="Mark as caught">
+                            <Checkbox defaultChecked color="secondary" />
+                          </Tooltip>
+                        )}
                         title={capitalizeString(collectible.name['name-USen'])}
                       />
                       <CardContent>
@@ -50,7 +51,7 @@ function AvailableCollectibles(props) {
                           <Typography variant="body2" component="p">
                             {collectible.shadow}
                             {' '}
-                            Shadow
+                            shadow
                           </Typography>
                         )}
                       </CardContent>
@@ -79,10 +80,7 @@ AvailableCollectibles.propTypes = {
     speed: PropTypes.string,
     shadow: PropTypes.string,
     icon_uri: PropTypes.string,
-  })),
-};
-AvailableCollectibles.defaultProps = {
-  collectibles: [],
+  })).isRequired,
 };
 
 export default AvailableCollectibles;
