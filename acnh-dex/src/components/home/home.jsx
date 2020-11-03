@@ -1,13 +1,18 @@
+import './home.css';
 import React from 'react';
-import { Drawer, List, Toolbar, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import {
+  Drawer, List, Toolbar, ListItem, ListItemIcon, ListItemText,
+} from '@material-ui/core';
 import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import { Switch, Route, Link, useParams } from "react-router-dom";
-import { Caught, ToCatch } from '../';
-import './home.css';
+import {
+  Switch, Route, Link, useParams,
+} from 'react-router-dom';
+import Caught from '../caught/caught';
+import ToCatch from '../to-catch/to-catch';
 
-export default function Home() {
-  let { id } = useParams();
+function Home() {
+  const { id } = useParams();
 
   return (
     <div className="root">
@@ -15,34 +20,35 @@ export default function Home() {
         className="drawer"
         variant="permanent"
         classes={{
-          paper: "drawer-paper",
+          paper: 'drawer-paper',
         }}
       >
         <Toolbar />
         <div className="drawer-container">
           <List>
-            <ListItem button key={'To Catch'} component={Link} to={`/${id}`}>
+            <ListItem button key="To Catch" component={Link} to={`/${id}`}>
               <ListItemIcon>
                 <PlaylistAddCheckIcon />
               </ListItemIcon>
-              <ListItemText primary={'To Catch'} />
+              <ListItemText primary="To Catch" />
             </ListItem>
-            <ListItem button key={'Caught'} component={Link} to={`/${id}/caught`}>
+            <ListItem button key="Caught" component={Link} to={`/${id}/caught`}>
               <ListItemIcon>
                 <MenuBookIcon />
               </ListItemIcon>
-              <ListItemText primary={'Caught'} />
+              <ListItemText primary="Caught" />
             </ListItem>
           </List>
         </div>
       </Drawer>
       <main className="drawer-content">
         <Switch>
-          <Route exact path='/:id/caught' component={Caught}></Route>
-          <Route exact path='/:id' component={ToCatch}></Route>
+          <Route exact path="/:id/caught" component={Caught} />
+          <Route exact path="/:id" component={ToCatch} />
         </Switch>
       </main>
     </div>
   );
 }
 
+export default Home;

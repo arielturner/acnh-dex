@@ -1,27 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { IconButton, Snackbar, CircularProgress } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import './global-context.css';
 
 export const GlobalContext = React.createContext();
 
-export default function GlobalContextProvider({ children }) {
+function GlobalContextProvider({ children }) {
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
 
   const toggleLoadingSpinner = (value) => {
     setLoading(value);
-  }
+  };
 
   const setSnackbarMessage = (text) => {
     setMessage(text);
     setOpen(true);
-  }
+  };
 
   const [context] = React.useState({
     toggleLoadingSpinner,
-    setSnackbarMessage
+    setSnackbarMessage,
   });
 
   const handleClose = (event, reason) => {
@@ -34,13 +35,13 @@ export default function GlobalContextProvider({ children }) {
     <GlobalContext.Provider value={context}>
       {children}
 
-      {loading ?
-        <div className="spinner-container">
-          <CircularProgress color="secondary" />
-        </div>
-        :
-        null
-      }
+      {loading
+        ? (
+          <div className="spinner-container">
+            <CircularProgress color="secondary" />
+          </div>
+        )
+        : null}
 
       <Snackbar
         anchorOrigin={{
@@ -54,10 +55,18 @@ export default function GlobalContextProvider({ children }) {
         action={[
           <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
             <CloseIcon fontSize="small" />
-          </IconButton>
+          </IconButton>,
         ]}
-      >
-      </Snackbar>
+      />
     </GlobalContext.Provider>
   );
+}
+
+GlobalContextProvider.propTypes = {
+  children: PropTypes.element,
 };
+GlobalContextProvider.defaultProps = {
+  children: null,
+};
+
+export default GlobalContextProvider;

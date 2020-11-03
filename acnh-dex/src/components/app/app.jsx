@@ -1,16 +1,13 @@
-import './app.css';
 import React from 'react';
-import teal from '@material-ui/core/colors/teal';
-import lightBlue from '@material-ui/core/colors/lightBlue';
-import Switch from 'react-router-dom/Switch';
-import Route from 'react-router-dom/Route';
+import { teal, lightBlue } from '@material-ui/core/colors';
+import { Switch, Route } from 'react-router-dom';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
 import {
   IconButton, Typography, Toolbar, CssBaseline, AppBar, createMuiTheme, ThemeProvider, Tooltip,
 } from '@material-ui/core';
-import {
-  Welcome, Home,
-} from '..';
+import './app.css';
+import Welcome from '../welcome/welcome';
+import Home from '../home/home';
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -27,7 +24,7 @@ const darkTheme = createMuiTheme({
   },
 });
 
-export default function App() {
+function App() {
   const [theme, setTheme] = React.useState(localStorage.getItem('theme') === 'dark' ? darkTheme : lightTheme);
 
   const handleClick = () => {
@@ -61,3 +58,5 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+export default App;

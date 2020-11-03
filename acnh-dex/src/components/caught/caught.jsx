@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function Caught() {
+function Caught() {
   return (
     <div>
       caught
     </div>
   );
 }
+
+export default Caught;

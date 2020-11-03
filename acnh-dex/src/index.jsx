@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/app/app';
-import GlobalContextProvider from './providers/global-context'
 import { BrowserRouter } from 'react-router-dom';
+import App from './components/app/app';
+import GlobalContextProvider from './providers/global-context';
 
 ReactDOM.render((
   <BrowserRouter>
@@ -11,5 +11,4 @@ ReactDOM.render((
       <App />
     </GlobalContextProvider>
   </BrowserRouter>
-), document.getElementById('root')
-);
+), document.getElementById('root'));

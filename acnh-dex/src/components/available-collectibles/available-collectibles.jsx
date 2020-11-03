@@ -1,12 +1,13 @@
 import './available-collectibles.css';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {
   Accordion, AccordionSummary, AccordionDetails, Typography, Card, CardContent, Avatar, CardHeader,
   Checkbox,
 } from '@material-ui/core';
 
-export default function AvailableCollectibles(props) {
+function AvailableCollectibles(props) {
   const { collectibles } = props;
   const times = [...new Set(collectibles.map((c) => c.availability.time))];
 
@@ -15,16 +16,16 @@ export default function AvailableCollectibles(props) {
   return (
     <div>
       {
-        times.map((time, i) => (
-          <Accordion key={i}>
+        times.map((time) => (
+          <Accordion key={time}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
               <Typography>{time === '' ? 'All day' : time}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <div className="card-container">
                 {
-                  collectibles.filter((c) => c.availability.time === time).map((collectible, j) => (
-                    <Card key={j} className="card" variant="outlined">
+                  collectibles.filter((c) => c.availability.time === time).map((collectible) => (
+                    <Card key={collectible.id} className="card" variant="outlined">
                       <CardHeader
                         className="card-header"
                         avatar={
@@ -48,6 +49,7 @@ export default function AvailableCollectibles(props) {
                         {collectible.shadow && (
                           <Typography variant="body2" component="p">
                             {collectible.shadow}
+                            {' '}
                             Shadow
                           </Typography>
                         )}
@@ -63,3 +65,24 @@ export default function AvailableCollectibles(props) {
     </div>
   );
 }
+
+AvailableCollectibles.propTypes = {
+  collectibles: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.shape({
+      'name-USen': PropTypes.string,
+    }),
+    availability: PropTypes.shape({
+      location: PropTypes.string,
+      rarity: PropTypes.string,
+    }),
+    speed: PropTypes.string,
+    shadow: PropTypes.string,
+    icon_uri: PropTypes.string,
+  })),
+};
+AvailableCollectibles.defaultProps = {
+  collectibles: [],
+};
+
+export default AvailableCollectibles;
