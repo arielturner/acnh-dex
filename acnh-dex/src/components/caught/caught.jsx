@@ -23,11 +23,11 @@ class Caught extends React.Component {
     toggleLoadingSpinner(true);
 
     Promise.all([axios.get(`${baseUrl}/fish`), axios.get(`${baseUrl}/bugs`), axios.get(`${baseUrl}/sea`)])
-      .then((values) => {
+      .then((res) => {
         this.setState({
-          fish: values[0].data,
-          bugs: values[1].data,
-          seaCreatures: values[2].data,
+          fish: res[0].data,
+          bugs: res[1].data,
+          seaCreatures: res[2].data,
         });
       })
       .catch((err) => {

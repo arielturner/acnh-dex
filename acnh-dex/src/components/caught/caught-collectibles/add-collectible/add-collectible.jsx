@@ -31,9 +31,9 @@ export default function AddCollectible({ type, caughtCollectibles, onAddSelected
     }
 
     axios.get(url)
-      .then((values) => {
+      .then((res) => {
         const caughtIds = caughtCollectibles.map((c) => c.id);
-        setAvailableCollectibles(values.data.filter(((c) => !caughtIds.includes(c.id))));
+        setAvailableCollectibles(res.data.filter(((c) => !caughtIds.includes(c.id))));
         setChecked([]);
       })
       .catch((err) => {

@@ -25,8 +25,8 @@ class ToCatch extends React.Component {
     const component = this;
 
     Promise.all([axios.get(`${baseUrl}/fish`), axios.get(`${baseUrl}/bugs`), axios.get(`${baseUrl}/sea`)])
-      .then((values) => {
-        component.setAvailable(values[0].data, values[1].data, values[2].data);
+      .then((res) => {
+        component.setAvailable(res[0].data, res[1].data, res[2].data);
       })
       .catch((err) => {
         setSnackbarMessage(err.toString());
