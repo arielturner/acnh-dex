@@ -6,7 +6,7 @@ import {
   Accordion, AccordionSummary, AccordionDetails, Typography, Card, CardContent, Avatar, CardHeader,
   Checkbox, Tooltip,
 } from '@material-ui/core';
-import capitalizeString from '../../utils/string-utils';
+import capitalizeString from '../../../utils/string-utils';
 
 function AvailableCollectibles(props) {
   const { collectibles } = props;

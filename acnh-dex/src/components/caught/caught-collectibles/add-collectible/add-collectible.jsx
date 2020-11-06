@@ -7,12 +7,12 @@ import {
 } from '@material-ui/core';
 import './add-collectible.scss';
 import axios from 'axios';
-import { GlobalContext } from '../../../providers/global-context';
-import capitalizeString from '../../../utils/string-utils';
+import { GlobalContext } from '../../../../global/global-context';
+import capitalizeString from '../../../../utils/string-utils';
 
 const baseUrl = 'http://acnhapi.com/v1a';
 
-export default function AddCollectible({ type, caughtCollectibles }) {
+export default function AddCollectible({ type, caughtCollectibles, onAddSelectedClick }) {
   const { setSnackbarMessage, toggleLoadingSpinner } = useContext(GlobalContext);
   const [open, setOpen] = React.useState(false);
   const [availableCollectibles, setAvailableCollectibles] = React.useState([]);
@@ -40,8 +40,8 @@ export default function AddCollectible({ type, caughtCollectibles }) {
         setSnackbarMessage(err.toString());
       })
       .finally(() => {
-        toggleLoadingSpinner(false);
         setOpen(true);
+        toggleLoadingSpinner(false);
       });
   };
 
@@ -62,6 +62,11 @@ export default function AddCollectible({ type, caughtCollectibles }) {
     setChecked(newChecked);
   };
 
+  const handleAddSelectedClick = () => {
+    onAddSelectedClick(type, availableCollectibles.filter((c) => checked.includes(c.id)));
+    handleClose();
+  };
+
   return (
     <div>
       <Tooltip title={`Add ${type}`} placement="bottom">
@@ -73,8 +78,8 @@ export default function AddCollectible({ type, caughtCollectibles }) {
         <DialogTitle id="dialog-title">{`Add ${type}`}</DialogTitle>
         <DialogContent dividers>
           <List dense>
-            {availableCollectibles.map((collectible, i) => (
-              <ListItem key={collectible.id} button onClick={handleToggle(i)}>
+            {availableCollectibles.map((collectible) => (
+              <ListItem key={collectible.id} button onClick={handleToggle(collectible.id)}>
                 <ListItemAvatar>
                   <Avatar className="collectible-icon" alt={collectible.name['name-USen']} src={collectible.icon_uri} />
                 </ListItemAvatar>
@@ -82,8 +87,8 @@ export default function AddCollectible({ type, caughtCollectibles }) {
                 <ListItemSecondaryAction>
                   <Checkbox
                     edge="end"
-                    onChange={handleToggle(i)}
-                    checked={checked.includes(i)}
+                    onChange={handleToggle(collectible.id)}
+                    checked={checked.includes(collectible.id)}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
@@ -98,7 +103,7 @@ export default function AddCollectible({ type, caughtCollectibles }) {
             Cancel
           </Button>
           {availableCollectibles.length !== 0 && (
-            <Button autoFocus onClick={handleClose} color="primary">
+            <Button autoFocus color="primary" onClick={handleAddSelectedClick}>
               Add Selected
             </Button>
           )}
@@ -117,4 +122,5 @@ AddCollectible.propTypes = {
     }),
     icon_uri: PropTypes.string,
   })).isRequired,
+  onAddSelectedClick: PropTypes.func.isRequired,
 };

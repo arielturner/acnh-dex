@@ -5,10 +5,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import {
   Avatar, IconButton, Card, CardHeader, Tooltip,
 } from '@material-ui/core';
-import capitalizeString from '../../utils/string-utils';
+import capitalizeString from '../../../utils/string-utils';
 import AddCollectible from './add-collectible/add-collectible';
 
-function CaughtCollectibles({ type, collectibles, onDeleteClick }) {
+function CaughtCollectibles({
+  type, collectibles, onDeleteClick, onAddSelectedClick,
+}) {
   return (
     <div className="collectible-container">
       {collectibles.map((collectible, i) => (
@@ -20,7 +22,7 @@ function CaughtCollectibles({ type, collectibles, onDeleteClick }) {
             }
             action={(
               <Tooltip title="Delete">
-                <IconButton edge="end" aria-label="delete collectible" onClick={() => onDeleteClick(i)}>
+                <IconButton edge="end" aria-label="delete collectible" onClick={() => onDeleteClick(type, i)}>
                   <DeleteIcon />
                 </IconButton>
               </Tooltip>
@@ -29,7 +31,11 @@ function CaughtCollectibles({ type, collectibles, onDeleteClick }) {
           />
         </Card>
       ))}
-      <AddCollectible type={type} caughtCollectibles={collectibles} />
+      <AddCollectible
+        type={type}
+        caughtCollectibles={collectibles}
+        onAddSelectedClick={onAddSelectedClick}
+      />
     </div>
   );
 }
@@ -44,6 +50,7 @@ CaughtCollectibles.propTypes = {
     icon_uri: PropTypes.string,
   })).isRequired,
   onDeleteClick: PropTypes.func.isRequired,
+  onAddSelectedClick: PropTypes.func.isRequired,
 };
 
 export default CaughtCollectibles;

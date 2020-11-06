@@ -1,10 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import { GlobalContext } from '../../providers/global-context';
-import CaughtCollectibles from '../caught-collectibles/caught-collectibles';
+import { GlobalContext } from '../../global/global-context';
+import CaughtCollectibles from './caught-collectibles/caught-collectibles';
 import CollectibleTabs from '../collectible-tabs/collectible-tabs';
 
 const baseUrl = 'http://acnhapi.com/v1a';
+
+function sortFn(a, b) {
+  return a.id > b.id ? 1 : -1;
+}
 
 class Caught extends React.Component {
   constructor(props) {
@@ -34,25 +38,33 @@ class Caught extends React.Component {
       });
   }
 
-  handleBugDeleteClick = (index) => {
-    const { bugs } = this.state;
+  handleDeleteClick = (type, index) => {
+    const { bugs, fish, seaCreatures } = this.state;
     const newBugs = [...bugs];
-    newBugs.splice(index, 1);
-    this.setState({ bugs: newBugs });
-  }
-
-  handleFishDeleteClick = (index) => {
-    const { fish } = this.state;
     const newFish = [...fish];
-    newFish.splice(index, 1);
-    this.setState({ fish: newFish });
+    const newSeaCreatures = [...seaCreatures];
+
+    if (type === 'bug') {
+      newBugs.splice(index, 1);
+    } else if (type === 'fish') {
+      newFish.splice(index, 1);
+    } else {
+      newSeaCreatures.splice(index, 1);
+    }
+
+    this.setState({ bugs: newBugs, fish: newFish, seaCreatures: newSeaCreatures });
   }
 
-  handleSeaCreatureDeleteClick = (index) => {
-    const { seaCreatures } = this.state;
-    const newSeaCreatures = [...seaCreatures];
-    newSeaCreatures.splice(index, 1);
-    this.setState({ seaCreatures: newSeaCreatures });
+  handleAddSelectedClick = (type, selected) => {
+    const { bugs, fish, seaCreatures } = this.state;
+
+    if (type === 'bug') {
+      this.setState({ bugs: [...bugs, ...selected].sort(sortFn) });
+    } else if (type === 'fish') {
+      this.setState({ fish: [...fish, ...selected].sort(sortFn) });
+    } else {
+      this.setState({ seaCreatures: [...seaCreatures, ...selected].sort(sortFn) });
+    }
   }
 
   render() {
@@ -63,9 +75,30 @@ class Caught extends React.Component {
     return (
       <div>
         <CollectibleTabs
-          bugsComponent={<CaughtCollectibles type="bug" collectibles={bugs} onDeleteClick={this.handleBugDeleteClick} />}
-          fishComponent={<CaughtCollectibles type="fish" collectibles={fish} onDeleteClick={this.handleFishDeleteClick} />}
-          seaCreaturesComponent={<CaughtCollectibles type="sea creature" collectibles={seaCreatures} onDeleteClick={this.handleSeaCreatureDeleteClick} />}
+          bugsComponent={(
+            <CaughtCollectibles
+              type="bug"
+              collectibles={bugs}
+              onDeleteClick={this.handleDeleteClick}
+              onAddSelectedClick={this.handleAddSelectedClick}
+            />
+          )}
+          fishComponent={(
+            <CaughtCollectibles
+              type="fish"
+              collectibles={fish}
+              onDeleteClick={this.handleDeleteClick}
+              onAddSelectedClick={this.handleAddSelectedClick}
+            />
+          )}
+          seaCreaturesComponent={(
+            <CaughtCollectibles
+              type="sea creature"
+              collectibles={seaCreatures}
+              onDeleteClick={this.handleDeleteClick}
+              onAddSelectedClick={this.handleAddSelectedClick}
+            />
+          )}
         />
       </div>
     );

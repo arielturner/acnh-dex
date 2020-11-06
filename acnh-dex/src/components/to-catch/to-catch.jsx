@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { GlobalContext } from '../../providers/global-context';
-import AvailableCollectibles from '../available-collectibles/available-collectibles';
+import { GlobalContext } from '../../global/global-context';
+import AvailableCollectibles from './available-collectibles/available-collectibles';
 import CollectibleTabs from '../collectible-tabs/collectible-tabs';
 
 const baseUrl = 'http://acnhapi.com/v1a';

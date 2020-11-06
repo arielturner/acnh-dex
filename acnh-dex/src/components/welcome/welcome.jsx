@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
-import { GlobalContext } from '../../providers/global-context';
+import { GlobalContext } from '../../global/global-context';
 import './welcome.scss';
 
 function Welcome() {
