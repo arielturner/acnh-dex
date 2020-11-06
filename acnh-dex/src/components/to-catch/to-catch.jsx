@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { Paper, Tabs, Tab } from '@material-ui/core';
 import { GlobalContext } from '../../providers/global-context';
 import AvailableCollectibles from '../available-collectibles/available-collectibles';
-import './to-catch.scss';
+import CollectibleTabs from '../collectible-tabs/collectible-tabs';
 
 const baseUrl = 'http://acnhapi.com/v1a';
 const currentMonth = new Date().getMonth() + 1;
@@ -16,7 +15,7 @@ class ToCatch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0, fish: [], bugs: [], seaCreatures: [],
+      fish: [], bugs: [], seaCreatures: [],
     };
   }
 
@@ -49,39 +48,18 @@ class ToCatch extends React.Component {
     });
   }
 
-  handleChange = (event, newValue) => {
-    this.setState({ value: newValue });
-  };
-
   render() {
     const {
-      value, fish, bugs, seaCreatures,
+      fish, bugs, seaCreatures,
     } = this.state;
 
     return (
       <div>
-        <Paper>
-          <Tabs
-            value={value}
-            onChange={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            centered
-          >
-            <Tab label="Bugs" />
-            <Tab label="Fish" />
-            <Tab label="Sea Creatures" />
-          </Tabs>
-          {value === 0 && (
-            <AvailableCollectibles collectibles={bugs} />
-          )}
-          {value === 1 && (
-            <AvailableCollectibles collectibles={fish} />
-          )}
-          {value === 2 && (
-            <AvailableCollectibles collectibles={seaCreatures} />
-          )}
-        </Paper>
+        <CollectibleTabs
+          bugsComponent={<AvailableCollectibles collectibles={bugs} />}
+          fishComponent={<AvailableCollectibles collectibles={fish} />}
+          seaCreaturesComponent={<AvailableCollectibles collectibles={seaCreatures} />}
+        />
       </div>
     );
   }

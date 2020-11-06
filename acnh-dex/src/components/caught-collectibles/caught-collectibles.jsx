@@ -2,14 +2,27 @@ import './caught-collectibles.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
 import {
-  Avatar, IconButton, Card, CardHeader, Tooltip,
+  Avatar, IconButton, Card, CardHeader, Tooltip, Fab,
 } from '@material-ui/core';
 import capitalizeString from '../../utils/string-utils';
 
-function CaughtCollectibles(props) {
-  const { collectibles } = props;
+function AddButton({ type }) {
+  return (
+    <Tooltip title={`Add ${type}`} placement="bottom">
+      <Fab className="add-button" color="secondary" aria-label={`add ${type}`}>
+        <AddIcon />
+      </Fab>
+    </Tooltip>
+  );
+}
 
+AddButton.propTypes = {
+  type: PropTypes.string.isRequired,
+};
+
+function CaughtCollectibles({ type, collectibles }) {
   return (
     <div className="collectible-container">
       {collectibles.map((collectible) => (
@@ -30,6 +43,7 @@ function CaughtCollectibles(props) {
           />
         </Card>
       ))}
+      <AddButton type={type} />
     </div>
   );
 }
@@ -42,6 +56,7 @@ CaughtCollectibles.propTypes = {
     }),
     icon_uri: PropTypes.string,
   })).isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export default CaughtCollectibles;

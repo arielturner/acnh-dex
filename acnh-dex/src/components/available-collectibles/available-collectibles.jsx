@@ -32,7 +32,7 @@ function AvailableCollectibles(props) {
                         }
                         action={(
                           <Tooltip title="Mark as caught">
-                            <Checkbox defaultChecked color="secondary" />
+                            <Checkbox color="secondary" />
                           </Tooltip>
                         )}
                         title={capitalizeString(collectible.name['name-USen'])}
