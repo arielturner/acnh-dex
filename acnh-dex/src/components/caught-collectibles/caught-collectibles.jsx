@@ -2,30 +2,16 @@ import './caught-collectibles.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
 import {
-  Avatar, IconButton, Card, CardHeader, Tooltip, Fab,
+  Avatar, IconButton, Card, CardHeader, Tooltip,
 } from '@material-ui/core';
 import capitalizeString from '../../utils/string-utils';
+import AddCollectible from './add-collectible/add-collectible';
 
-function AddButton({ type }) {
-  return (
-    <Tooltip title={`Add ${type}`} placement="bottom">
-      <Fab className="add-button" color="secondary" aria-label={`add ${type}`}>
-        <AddIcon />
-      </Fab>
-    </Tooltip>
-  );
-}
-
-AddButton.propTypes = {
-  type: PropTypes.string.isRequired,
-};
-
-function CaughtCollectibles({ type, collectibles }) {
+function CaughtCollectibles({ type, collectibles, onDeleteClick }) {
   return (
     <div className="collectible-container">
-      {collectibles.map((collectible) => (
+      {collectibles.map((collectible, i) => (
         <Card key={collectible.id} className="card" variant="outlined">
           <CardHeader
             className="card-header"
@@ -34,7 +20,7 @@ function CaughtCollectibles({ type, collectibles }) {
             }
             action={(
               <Tooltip title="Delete">
-                <IconButton edge="end" aria-label="delete collectible">
+                <IconButton edge="end" aria-label="delete collectible" onClick={() => onDeleteClick(i)}>
                   <DeleteIcon />
                 </IconButton>
               </Tooltip>
@@ -43,12 +29,13 @@ function CaughtCollectibles({ type, collectibles }) {
           />
         </Card>
       ))}
-      <AddButton type={type} />
+      <AddCollectible type={type} caughtCollectibles={collectibles} />
     </div>
   );
 }
 
 CaughtCollectibles.propTypes = {
+  type: PropTypes.string.isRequired,
   collectibles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.shape({
@@ -56,7 +43,7 @@ CaughtCollectibles.propTypes = {
     }),
     icon_uri: PropTypes.string,
   })).isRequired,
-  type: PropTypes.string.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 };
 
 export default CaughtCollectibles;

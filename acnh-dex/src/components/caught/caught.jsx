@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import './caught.scss';
 import { GlobalContext } from '../../providers/global-context';
 import CaughtCollectibles from '../caught-collectibles/caught-collectibles';
 import CollectibleTabs from '../collectible-tabs/collectible-tabs';
@@ -35,6 +34,27 @@ class Caught extends React.Component {
       });
   }
 
+  handleBugDeleteClick = (index) => {
+    const { bugs } = this.state;
+    const newBugs = [...bugs];
+    newBugs.splice(index, 1);
+    this.setState({ bugs: newBugs });
+  }
+
+  handleFishDeleteClick = (index) => {
+    const { fish } = this.state;
+    const newFish = [...fish];
+    newFish.splice(index, 1);
+    this.setState({ fish: newFish });
+  }
+
+  handleSeaCreatureDeleteClick = (index) => {
+    const { seaCreatures } = this.state;
+    const newSeaCreatures = [...seaCreatures];
+    newSeaCreatures.splice(index, 1);
+    this.setState({ seaCreatures: newSeaCreatures });
+  }
+
   render() {
     const {
       fish, bugs, seaCreatures,
@@ -43,9 +63,9 @@ class Caught extends React.Component {
     return (
       <div>
         <CollectibleTabs
-          bugsComponent={<CaughtCollectibles type="bug" collectibles={bugs} />}
-          fishComponent={<CaughtCollectibles type="fish" collectibles={fish} />}
-          seaCreaturesComponent={<CaughtCollectibles type="sea creature" collectibles={seaCreatures} />}
+          bugsComponent={<CaughtCollectibles type="bug" collectibles={bugs} onDeleteClick={this.handleBugDeleteClick} />}
+          fishComponent={<CaughtCollectibles type="fish" collectibles={fish} onDeleteClick={this.handleFishDeleteClick} />}
+          seaCreaturesComponent={<CaughtCollectibles type="sea creature" collectibles={seaCreatures} onDeleteClick={this.handleSeaCreatureDeleteClick} />}
         />
       </div>
     );
