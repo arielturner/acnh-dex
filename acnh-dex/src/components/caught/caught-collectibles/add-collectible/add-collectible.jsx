@@ -69,7 +69,7 @@ export default function AddCollectible({ category, caughtCollectibles, onAddSele
   };
 
   return (
-    <div className="add-container">
+    <div>
       <Tooltip title={`Add ${category}`} placement="bottom">
         <Fab className="add-button" color="secondary" aria-label={`add ${category}`} onClick={handleClickOpen}>
           <AddIcon />

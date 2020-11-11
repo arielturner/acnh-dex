@@ -21,21 +21,21 @@ class Caught extends React.Component {
     this.loadCaughtCollectibles();
   }
 
-  handleDeleteClick = (type, index) => {
-    const { bugs, fish, seaCreatures } = this.state;
-    const newBugs = [...bugs];
-    const newFish = [...fish];
-    const newSeaCreatures = [...seaCreatures];
+  handleDeleteClick = (category, id) => {
+    const { setSnackbarMessage, toggleLoadingSpinner } = this.context;
+    const { userName } = this.props;
+    const component = this;
 
-    if (type === 'bug') {
-      newBugs.splice(index, 1);
-    } else if (type === 'fish') {
-      newFish.splice(index, 1);
-    } else {
-      newSeaCreatures.splice(index, 1);
-    }
+    toggleLoadingSpinner(true);
 
-    this.setState({ bugs: newBugs, fish: newFish, seaCreatures: newSeaCreatures });
+    axios.delete(`/api/users/${userName}/${category}/${id}`)
+      .then(() => {
+        component.loadCaughtCollectibles();
+      })
+      .catch((err) => {
+        setSnackbarMessage(err.toString());
+        toggleLoadingSpinner(false);
+      });
   }
 
   handleAddSelectedClick = (category, selected) => {
@@ -65,7 +65,7 @@ class Caught extends React.Component {
     const { userName } = this.props;
     toggleLoadingSpinner(true);
 
-    axios.get(`/api/users?name=${userName}`)
+    axios.get(`/api/users/${userName}`)
       .then((res) => {
         const { collectibles } = res.data[0];
         this.setState({

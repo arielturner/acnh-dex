@@ -32,7 +32,7 @@ function Welcome() {
     if (trimmedName.length && trimmedName.match('^[a-zA-Z0-9]*$') != null) {
       toggleLoadingSpinner(true);
 
-      axios.get(`/api/users?name=${trimmedName}`)
+      axios.get(`/api/users/${trimmedName}`)
         .then((res) => {
           if (res.data.length === 0) {
             addUser(trimmedName);
