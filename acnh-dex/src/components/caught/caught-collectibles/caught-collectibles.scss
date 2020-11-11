@@ -1,6 +1,14 @@
+.caught-container {
+  display: inline-flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 8em;
+}
+
 .collectible-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   padding: 16px;
+  width: 100%;
 }

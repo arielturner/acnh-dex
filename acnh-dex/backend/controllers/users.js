@@ -19,4 +19,13 @@ router.post('/', (req, res) => {
     .then(() => res.json())
     .catch((err) => res.status(500).json(err));
 });
+
+router.put('/', (req, res) => {
+  const { name, collectibles } = req.body;
+
+  User.findOneAndUpdate({ name }, { $addToSet: { collectibles } }, { upsert: true })
+    .then(() => res.json())
+    .catch((err) => res.status(500).json(err));
+});
+
 module.exports = router;

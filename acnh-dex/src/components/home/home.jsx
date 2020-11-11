@@ -43,7 +43,13 @@ function Home() {
       </Drawer>
       <main className="drawer-content">
         <Switch>
-          <Route exact path="/:id/caught" component={Caught} />
+          <Route
+            exact
+            path="/:id/caught"
+            render={() => (
+              <Caught userName={id} />
+            )}
+          />
           <Route exact path="/:id" component={ToCatch} />
         </Switch>
       </main>

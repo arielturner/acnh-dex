@@ -1,10 +1,15 @@
-.add-button {
-  /* position: absolute; */
-  bottom: 2em;
-  right: 2em;
-  float: right;
-  position: fixed !important;
-  color: white !important;
+.add-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  .add-button {
+    bottom: 2em;
+    right: 2em;
+    // float: right;
+    // position: fixed !important;
+    color: white !important;
+  }
 }
 
 .MuiDialog-paperWidthSm {

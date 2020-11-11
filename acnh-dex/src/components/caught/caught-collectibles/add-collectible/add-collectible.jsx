@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
 import {
   Button, List, ListItem, ListItemText, Dialog, DialogTitle, DialogContent, DialogActions, Tooltip,
-  Fab, ListItemAvatar, ListItemSecondaryAction, Checkbox, Avatar,
+  Fab, ListItemAvatar, ListItemSecondaryAction, Checkbox, Avatar, Typography,
 } from '@material-ui/core';
 import './add-collectible.scss';
 import axios from 'axios';
@@ -12,7 +12,7 @@ import capitalizeString from '../../../../utils/string-utils';
 
 const baseUrl = 'http://acnhapi.com/v1a';
 
-export default function AddCollectible({ type, caughtCollectibles, onAddSelectedClick }) {
+export default function AddCollectible({ category, caughtCollectibles, onAddSelectedClick }) {
   const { setSnackbarMessage, toggleLoadingSpinner } = useContext(GlobalContext);
   const [open, setOpen] = React.useState(false);
   const [availableCollectibles, setAvailableCollectibles] = React.useState([]);
@@ -22,9 +22,9 @@ export default function AddCollectible({ type, caughtCollectibles, onAddSelected
     toggleLoadingSpinner(true);
 
     let url;
-    if (type === 'bug') {
+    if (category === 'bug') {
       url = `${baseUrl}/bugs`;
-    } else if (type === 'fish') {
+    } else if (category === 'fish') {
       url = `${baseUrl}/fish`;
     } else {
       url = `${baseUrl}/sea`;
@@ -33,7 +33,8 @@ export default function AddCollectible({ type, caughtCollectibles, onAddSelected
     axios.get(url)
       .then((res) => {
         const caughtIds = caughtCollectibles.map((c) => c.id);
-        setAvailableCollectibles(res.data.filter(((c) => !caughtIds.includes(c.id))));
+        const available = res.data.filter(((c) => !caughtIds.includes(c.id))).map((c) => ({ ...c, name: c.name['name-USen'] }));
+        setAvailableCollectibles(available);
         setChecked([]);
       })
       .catch((err) => {
@@ -63,27 +64,27 @@ export default function AddCollectible({ type, caughtCollectibles, onAddSelected
   };
 
   const handleAddSelectedClick = () => {
-    onAddSelectedClick(type, availableCollectibles.filter((c) => checked.includes(c.id)));
+    onAddSelectedClick(category, availableCollectibles.filter((c) => checked.includes(c.id)));
     handleClose();
   };
 
   return (
-    <div>
-      <Tooltip title={`Add ${type}`} placement="bottom">
-        <Fab className="add-button" color="secondary" aria-label={`add ${type}`} onClick={handleClickOpen}>
+    <div className="add-container">
+      <Tooltip title={`Add ${category}`} placement="bottom">
+        <Fab className="add-button" color="secondary" aria-label={`add ${category}`} onClick={handleClickOpen}>
           <AddIcon />
         </Fab>
       </Tooltip>
       <Dialog onClose={handleClose} aria-labelledby="dialog-title" open={open}>
-        <DialogTitle id="dialog-title">{`Add ${type}`}</DialogTitle>
+        <DialogTitle id="dialog-title">{`Add ${category}`}</DialogTitle>
         <DialogContent dividers>
           <List dense>
             {availableCollectibles.map((collectible) => (
               <ListItem key={collectible.id} button onClick={handleToggle(collectible.id)}>
                 <ListItemAvatar>
-                  <Avatar className="collectible-icon" alt={collectible.name['name-USen']} src={collectible.icon_uri} />
+                  <Avatar className="collectible-icon" alt={collectible.name} src={collectible.icon_uri} />
                 </ListItemAvatar>
-                <ListItemText primary={capitalizeString(collectible.name['name-USen'])} />
+                <ListItemText primary={capitalizeString(collectible.name)} />
                 <ListItemSecondaryAction>
                   <Checkbox
                     edge="end"
@@ -95,7 +96,7 @@ export default function AddCollectible({ type, caughtCollectibles, onAddSelected
             ))}
           </List>
           {availableCollectibles.length === 0 && (
-            <div>You already caught &apos;em all!</div>
+            <Typography variant="body1" gutterBottom>You already caught &apos;em all!</Typography>
           )}
         </DialogContent>
         <DialogActions>
@@ -114,12 +115,13 @@ export default function AddCollectible({ type, caughtCollectibles, onAddSelected
 }
 
 AddCollectible.propTypes = {
-  type: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
   caughtCollectibles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    name: PropTypes.shape({
-      'name-USen': PropTypes.string,
-    }),
+    // name: PropTypes.shape({
+    //   'name-USen': PropTypes.string,
+    // }),
+    name: PropTypes.string,
     icon_uri: PropTypes.string,
   })).isRequired,
   onAddSelectedClick: PropTypes.func.isRequired,

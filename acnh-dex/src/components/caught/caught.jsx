@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { GlobalContext } from '../../global/global-context';
 import CaughtCollectibles from './caught-collectibles/caught-collectibles';
 import CollectibleTabs from '../collectible-tabs/collectible-tabs';
-
-const baseUrl = 'http://acnhapi.com/v1a';
 
 function sortFn(a, b) {
   return a.id > b.id ? 1 : -1;
@@ -19,23 +18,7 @@ class Caught extends React.Component {
   }
 
   componentDidMount() {
-    const { setSnackbarMessage, toggleLoadingSpinner } = this.context;
-    toggleLoadingSpinner(true);
-
-    Promise.all([axios.get(`${baseUrl}/fish`), axios.get(`${baseUrl}/bugs`), axios.get(`${baseUrl}/sea`)])
-      .then((res) => {
-        this.setState({
-          fish: res[0].data,
-          bugs: res[1].data,
-          seaCreatures: res[2].data,
-        });
-      })
-      .catch((err) => {
-        setSnackbarMessage(err.toString());
-      })
-      .finally(() => {
-        toggleLoadingSpinner(false);
-      });
+    this.loadCaughtCollectibles();
   }
 
   handleDeleteClick = (type, index) => {
@@ -55,16 +38,48 @@ class Caught extends React.Component {
     this.setState({ bugs: newBugs, fish: newFish, seaCreatures: newSeaCreatures });
   }
 
-  handleAddSelectedClick = (type, selected) => {
-    const { bugs, fish, seaCreatures } = this.state;
+  handleAddSelectedClick = (category, selected) => {
+    const { setSnackbarMessage, toggleLoadingSpinner } = this.context;
+    const { userName } = this.props;
+    const component = this;
 
-    if (type === 'bug') {
-      this.setState({ bugs: [...bugs, ...selected].sort(sortFn) });
-    } else if (type === 'fish') {
-      this.setState({ fish: [...fish, ...selected].sort(sortFn) });
-    } else {
-      this.setState({ seaCreatures: [...seaCreatures, ...selected].sort(sortFn) });
-    }
+    toggleLoadingSpinner(true);
+
+    const body = {
+      name: userName,
+      collectibles: selected.map((c) => ({ ...c, category })),
+    };
+
+    axios.put('/api/users', body)
+      .then(() => {
+        component.loadCaughtCollectibles();
+      })
+      .catch((err) => {
+        setSnackbarMessage(err.toString());
+        toggleLoadingSpinner(false);
+      });
+  }
+
+  loadCaughtCollectibles() {
+    const { setSnackbarMessage, toggleLoadingSpinner } = this.context;
+    const { userName } = this.props;
+    toggleLoadingSpinner(true);
+
+    axios.get(`/api/users?name=${userName}`)
+      .then((res) => {
+        const { collectibles } = res.data[0];
+        this.setState({
+          fish: collectibles.filter((c) => c.category === 'fish').sort(sortFn),
+          bugs: collectibles.filter((c) => c.category === 'bug').sort(sortFn),
+          seaCreatures: collectibles.filter((c) => c.category === 'sea creature').sort(sortFn),
+        });
+      })
+      .catch((err) => {
+        setSnackbarMessage(err.toString());
+      })
+      .finally(() => {
+        toggleLoadingSpinner(false);
+      });
   }
 
   render() {
@@ -77,7 +92,7 @@ class Caught extends React.Component {
         <CollectibleTabs
           bugsComponent={(
             <CaughtCollectibles
-              type="bug"
+              category="bug"
               collectibles={bugs}
               onDeleteClick={this.handleDeleteClick}
               onAddSelectedClick={this.handleAddSelectedClick}
@@ -85,7 +100,7 @@ class Caught extends React.Component {
           )}
           fishComponent={(
             <CaughtCollectibles
-              type="fish"
+              category="fish"
               collectibles={fish}
               onDeleteClick={this.handleDeleteClick}
               onAddSelectedClick={this.handleAddSelectedClick}
@@ -93,7 +108,7 @@ class Caught extends React.Component {
           )}
           seaCreaturesComponent={(
             <CaughtCollectibles
-              type="sea creature"
+              category="sea creature"
               collectibles={seaCreatures}
               onDeleteClick={this.handleDeleteClick}
               onAddSelectedClick={this.handleAddSelectedClick}
@@ -106,5 +121,8 @@ class Caught extends React.Component {
 }
 
 Caught.contextType = GlobalContext;
+Caught.propTypes = {
+  userName: PropTypes.string.isRequired,
+};
 
 export default Caught;

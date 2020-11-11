@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Typography } from '@material-ui/core';
 import { GlobalContext } from '../../global/global-context';
 import './welcome.scss';
 
@@ -57,22 +57,22 @@ function Welcome() {
           <div className="content flex-center">
             <div className="flex-center flex-column">
               <div className="info-container">
-                <h1>Welcome!</h1>
-                <h2>
+                <Typography variant="h1">Welcome!</Typography>
+                <Typography variant="h4" gutterBottom>
                   Use this app to keep track of your collectibles in Animal Crossing: New Horizons.
-                </h2>
-                <h2>
+                </Typography>
+                <Typography variant="h5" gutterBottom>
                   Consumes
                   {' '}
                   <a href="http://acnhapi.com/" target="_blank" rel="noreferrer">ACNH API</a>
                   {' '}
                   for collectible metadata.
-                </h2>
+                </Typography>
               </div>
-              <div>Choose your address below.</div>
+              <Typography variant="body1">Choose your address below.</Typography>
               <form className="top-margin flex-center flex-column" autoComplete="off" onSubmit={handleSubmit}>
                 <div className="flex-center">
-                  <span className="url">http://localhost:3000/</span>
+                  <Typography className="url" variant="body1">http://localhost:3000/</Typography>
                   <TextField id="name-input" label="Name" variant="outlined" value={name} onChange={handleChange} />
                 </div>
                 <Button type="submit" className="top-margin" variant="contained" color="primary">Go</Button>
