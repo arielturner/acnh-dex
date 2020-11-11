@@ -118,9 +118,6 @@ AddCollectible.propTypes = {
   category: PropTypes.string.isRequired,
   caughtCollectibles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    // name: PropTypes.shape({
-    //   'name-USen': PropTypes.string,
-    // }),
     name: PropTypes.string,
     icon_uri: PropTypes.string,
   })).isRequired,
