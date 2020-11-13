@@ -1,3 +1,4 @@
+import './app.scss';
 import React from 'react';
 import { teal, lightBlue } from '@material-ui/core/colors';
 import { Switch, Route } from 'react-router-dom';
@@ -5,7 +6,6 @@ import InvertColorsIcon from '@material-ui/icons/InvertColors';
 import {
   IconButton, Typography, Toolbar, CssBaseline, AppBar, createMuiTheme, ThemeProvider, Tooltip,
 } from '@material-ui/core';
-import './app.scss';
 import Welcome from '../welcome/welcome';
 import Home from '../home/home';
 
