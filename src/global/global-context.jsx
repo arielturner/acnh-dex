@@ -52,11 +52,11 @@ function GlobalContextProvider({ children }) {
         autoHideDuration={6000}
         onClose={handleClose}
         message={message}
-        action={[
+        action={
           <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
             <CloseIcon fontSize="small" />
-          </IconButton>,
-        ]}
+          </IconButton>
+        }
       />
     </GlobalContext.Provider>
   );
