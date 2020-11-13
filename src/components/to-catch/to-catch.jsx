@@ -5,7 +5,7 @@ import { GlobalContext } from '../../global/global-context';
 import AvailableCollectibles from './available-collectibles/available-collectibles';
 import CollectibleTabs from '../collectible-tabs/collectible-tabs';
 
-const baseUrl = 'http://acnhapi.com/v1a';
+const baseUrl = 'https://acnhapi.com/v1a';
 const currentMonth = new Date().getMonth() + 1;
 
 function sortFn(a, b) {

@@ -64,7 +64,7 @@ function Welcome() {
                 <Typography variant="h5" gutterBottom>
                   Consumes
                   {' '}
-                  <a href="http://acnhapi.com/" target="_blank" rel="noreferrer">ACNH API</a>
+                  <a href="https://acnhapi.com/" target="_blank" rel="noreferrer">ACNH API</a>
                   {' '}
                   for collectible metadata.
                 </Typography>

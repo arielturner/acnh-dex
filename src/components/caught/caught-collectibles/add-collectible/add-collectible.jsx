@@ -10,7 +10,7 @@ import axios from 'axios';
 import { GlobalContext } from '../../../../global/global-context';
 import capitalizeString from '../../../../utils/string-utils';
 
-const baseUrl = 'http://acnhapi.com/v1a';
+const baseUrl = 'https://acnhapi.com/v1a';
 
 export default function AddCollectible({ category, caughtCollectibles, onAddSelectedClick }) {
   const { setSnackbarMessage, toggleLoadingSpinner } = useContext(GlobalContext);
