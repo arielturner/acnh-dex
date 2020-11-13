@@ -13,7 +13,7 @@ app.use('/api/users', users);
 
 app.use(express.static(path.join(__dirname, '../build')));
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, '../build'));
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 
 const port = process.env.PORT || 5000;
