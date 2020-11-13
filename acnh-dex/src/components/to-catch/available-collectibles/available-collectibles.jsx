@@ -12,7 +12,7 @@ function AvailableCollectibles({ category, collectibles, onCheck }) {
   const times = [...new Set(collectibles.map((c) => c.availability.time))];
 
   return (
-    <div>
+    <div className="available-container">
       {
         times.map((time) => (
           <Accordion key={time}>
@@ -62,6 +62,14 @@ function AvailableCollectibles({ category, collectibles, onCheck }) {
           </Accordion>
         ))
       }
+      {collectibles.length === 0 && (
+        <Typography variant="body1">
+          You&apos;ve already caught all the
+          {' '}
+          {category !== 'fish' ? `${category}s ` : `${category} `}
+          available for this month.
+        </Typography>
+      )}
     </div>
   );
 }
