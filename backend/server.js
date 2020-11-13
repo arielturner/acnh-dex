@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const users = require('./controllers/users');
+require('dotenv').config();
 require('./database');
 
 const app = express();
