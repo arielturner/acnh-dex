@@ -8,8 +8,7 @@ import {
 } from '@material-ui/core';
 import capitalizeString from '../../../utils/string-utils';
 
-function AvailableCollectibles(props) {
-  const { collectibles } = props;
+function AvailableCollectibles({ category, collectibles, onCheck }) {
   const times = [...new Set(collectibles.map((c) => c.availability.time))];
 
   return (
@@ -28,14 +27,14 @@ function AvailableCollectibles(props) {
                       <CardHeader
                         className="card-header"
                         avatar={
-                          <Avatar className="collectible-icon" alt={collectible.name['name-USen']} src={collectible.icon_uri} />
+                          <Avatar className="collectible-icon" alt={collectible.name} src={collectible.icon_uri} />
                         }
                         action={(
                           <Tooltip title="Mark as caught">
-                            <Checkbox color="secondary" />
+                            <Checkbox color="secondary" onChange={() => onCheck(category, collectible)} />
                           </Tooltip>
                         )}
-                        title={capitalizeString(collectible.name['name-USen'])}
+                        title={capitalizeString(collectible.name)}
                       />
                       <CardContent>
                         <Typography color="textSecondary">
@@ -68,11 +67,10 @@ function AvailableCollectibles(props) {
 }
 
 AvailableCollectibles.propTypes = {
+  category: PropTypes.string.isRequired,
   collectibles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    name: PropTypes.shape({
-      'name-USen': PropTypes.string,
-    }),
+    name: PropTypes.string,
     availability: PropTypes.shape({
       location: PropTypes.string,
       rarity: PropTypes.string,
@@ -81,6 +79,7 @@ AvailableCollectibles.propTypes = {
     shadow: PropTypes.string,
     icon_uri: PropTypes.string,
   })).isRequired,
+  onCheck: PropTypes.func.isRequired,
 };
 
 export default AvailableCollectibles;

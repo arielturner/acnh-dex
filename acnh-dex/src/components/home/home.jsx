@@ -50,7 +50,13 @@ function Home() {
               <Caught userName={id} />
             )}
           />
-          <Route exact path="/:id" component={ToCatch} />
+          <Route
+            exact
+            path="/:id"
+            render={() => (
+              <ToCatch userName={id} />
+            )}
+          />
         </Switch>
       </main>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { GlobalContext } from '../../global/global-context';
 import AvailableCollectibles from './available-collectibles/available-collectibles';
 import CollectibleTabs from '../collectible-tabs/collectible-tabs';
@@ -20,13 +21,57 @@ class ToCatch extends React.Component {
   }
 
   componentDidMount() {
+    this.loadAvailableCollectibles();
+  }
+
+  setAvailable(fish, bugs, seaCreatures, userCollectibles) {
+    const caughtFishIds = userCollectibles.filter((c) => c.category === 'fish').map((c) => c.id);
+    const caughtBugsIds = userCollectibles.filter((c) => c.category === 'bug').map((c) => c.id);
+    const caughtSeaCreaturesIds = userCollectibles.filter((c) => c.category === 'sea creature').map((c) => c.id);
+
+    const availableFish = fish.filter((f) => f.availability['month-array-northern'].includes(currentMonth) && !caughtFishIds.includes(f.id));
+    const availableBugs = bugs.filter((b) => b.availability['month-array-northern'].includes(currentMonth) && !caughtBugsIds.includes(b.id));
+    const availableSeaCreatures = seaCreatures.filter((sc) => sc.availability['month-array-northern'].includes(currentMonth) && !caughtSeaCreaturesIds.includes(sc.id));
+
+    this.setState({
+      fish: availableFish.map((f) => ({ ...f, name: f.name['name-USen'] })).sort(sortFn),
+      bugs: availableBugs.map((b) => ({ ...b, name: b.name['name-USen'] })).sort(sortFn),
+      seaCreatures: availableSeaCreatures.map((sc) => ({ ...sc, name: sc.name['name-USen'] })).sort(sortFn),
+    });
+  }
+
+  handleCheck = (category, checked) => {
     const { setSnackbarMessage, toggleLoadingSpinner } = this.context;
-    toggleLoadingSpinner(true);
+    const { userName } = this.props;
     const component = this;
 
-    Promise.all([axios.get(`${baseUrl}/fish`), axios.get(`${baseUrl}/bugs`), axios.get(`${baseUrl}/sea`)])
+    toggleLoadingSpinner(true);
+
+    const body = {
+      name: userName,
+      collectibles: [checked].map((c) => ({ ...c, category })),
+    };
+
+    axios.put('/api/users', body)
+      .then(() => {
+        component.loadAvailableCollectibles();
+      })
+      .catch((err) => {
+        setSnackbarMessage(err.toString());
+        toggleLoadingSpinner(false);
+      });
+  }
+
+  loadAvailableCollectibles() {
+    const { setSnackbarMessage, toggleLoadingSpinner } = this.context;
+    const { userName } = this.props;
+    const component = this;
+
+    toggleLoadingSpinner(true);
+
+    Promise.all([axios.get(`${baseUrl}/fish`), axios.get(`${baseUrl}/bugs`), axios.get(`${baseUrl}/sea`), axios.get(`/api/users/${userName}`)])
       .then((res) => {
-        component.setAvailable(res[0].data, res[1].data, res[2].data);
+        component.setAvailable(res[0].data, res[1].data, res[2].data, res[3].data[0].collectibles);
       })
       .catch((err) => {
         setSnackbarMessage(err.toString());
@@ -34,18 +79,6 @@ class ToCatch extends React.Component {
       .finally(() => {
         toggleLoadingSpinner(false);
       });
-  }
-
-  setAvailable(fish, bugs, seaCreatures) {
-    const availableFish = fish.filter((f) => f.availability['month-array-northern'].includes(currentMonth));
-    const availableBugs = bugs.filter((b) => b.availability['month-array-northern'].includes(currentMonth));
-    const availableSeaCreatures = seaCreatures.filter((sc) => sc.availability['month-array-northern'].includes(currentMonth));
-
-    this.setState({
-      fish: availableFish.sort(sortFn),
-      bugs: availableBugs.sort(sortFn),
-      seaCreatures: availableSeaCreatures.sort(sortFn),
-    });
   }
 
   render() {
@@ -56,9 +89,15 @@ class ToCatch extends React.Component {
     return (
       <div>
         <CollectibleTabs
-          bugsComponent={<AvailableCollectibles collectibles={bugs} />}
-          fishComponent={<AvailableCollectibles collectibles={fish} />}
-          seaCreaturesComponent={<AvailableCollectibles collectibles={seaCreatures} />}
+          bugsComponent={
+            <AvailableCollectibles category="bug" collectibles={bugs} onCheck={this.handleCheck} />
+          }
+          fishComponent={
+            <AvailableCollectibles category="fish" collectibles={fish} onCheck={this.handleCheck} />
+          }
+          seaCreaturesComponent={
+            <AvailableCollectibles category="sea creature" collectibles={seaCreatures} onCheck={this.handleCheck} />
+          }
         />
       </div>
     );
@@ -66,5 +105,8 @@ class ToCatch extends React.Component {
 }
 
 ToCatch.contextType = GlobalContext;
+ToCatch.propTypes = {
+  userName: PropTypes.string.isRequired,
+};
 
 export default ToCatch;
