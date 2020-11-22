@@ -33,8 +33,11 @@ function GlobalContextProvider({ children }) {
   const [message, setMessage] = React.useState('');
 
   const handleThemeClick = () => {
-    setTheme(theme === darkTheme ? lightTheme : darkTheme);
-    localStorage.setItem('theme', theme.palette.type);
+    setTheme(() => {
+      const newTheme = theme === darkTheme ? lightTheme : darkTheme;
+      localStorage.setItem('theme', newTheme.palette.type);
+      return newTheme;
+    });
   };
 
   const toggleLoadingSpinner = (value) => {
