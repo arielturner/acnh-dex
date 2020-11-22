@@ -67,7 +67,7 @@ class Caught extends React.Component {
 
     axios.get(`/api/users/${userName}`)
       .then((res) => {
-        const { collectibles } = res.data[0];
+        const collectibles = res.data[0]?.collectibles || [];
         this.setState({
           fish: collectibles.filter((c) => c.category === 'fish').sort(sortFn),
           bugs: collectibles.filter((c) => c.category === 'bug').sort(sortFn),

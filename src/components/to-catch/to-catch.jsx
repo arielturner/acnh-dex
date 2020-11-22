@@ -24,10 +24,10 @@ class ToCatch extends React.Component {
     this.loadAvailableCollectibles();
   }
 
-  setAvailable(fish, bugs, seaCreatures, userCollectibles) {
-    const caughtFishIds = userCollectibles.filter((c) => c.category === 'fish').map((c) => c.id);
-    const caughtBugsIds = userCollectibles.filter((c) => c.category === 'bug').map((c) => c.id);
-    const caughtSeaCreaturesIds = userCollectibles.filter((c) => c.category === 'sea creature').map((c) => c.id);
+  setAvailable(fish, bugs, seaCreatures, caught) {
+    const caughtFishIds = caught.filter((c) => c.category === 'fish').map((c) => c.id);
+    const caughtBugsIds = caught.filter((c) => c.category === 'bug').map((c) => c.id);
+    const caughtSeaCreaturesIds = caught.filter((c) => c.category === 'sea creature').map((c) => c.id);
 
     const availableFish = fish.filter((f) => f.availability['month-array-northern'].includes(currentMonth) && !caughtFishIds.includes(f.id));
     const availableBugs = bugs.filter((b) => b.availability['month-array-northern'].includes(currentMonth) && !caughtBugsIds.includes(b.id));
@@ -71,7 +71,9 @@ class ToCatch extends React.Component {
 
     Promise.all([axios.get(`${baseUrl}/fish`), axios.get(`${baseUrl}/bugs`), axios.get(`${baseUrl}/sea`), axios.get(`/api/users/${userName}`)])
       .then((res) => {
-        component.setAvailable(res[0].data, res[1].data, res[2].data, res[3].data[0].collectibles);
+        component.setAvailable(
+          res[0].data, res[1].data, res[2].data, res[3].data[0]?.collectibles || [],
+        );
       })
       .catch((err) => {
         setSnackbarMessage(err.toString());
