@@ -2,7 +2,7 @@
 ## Overview
 ACNH Dex is a full stack application built with React ([Material-UI framework](https://material-ui.com/)), Node.js, Express, and MongoDB.
 
-It keeps track of users' collectibles in the video game Animal Crossing: New Horizons and displays missing collectibles for the current month. It consumes [ACNH API](https://github.com/alexislours/ACNHAPI).
+It keeps track of users' collectibles in Animal Crossing: New Horizons and displays missing collectibles for the current month. It consumes [ACNH API](https://github.com/alexislours/ACNHAPI).
 
 ACNH Dex is hosted on Heroku at [https://acnh-dex.herokuapp.com/](https://acnh-dex.herokuapp.com/).
 
