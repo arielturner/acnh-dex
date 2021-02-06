@@ -5,8 +5,8 @@ a {
 .content {
   min-height: calc(100vh - 64px);
   position: absolute;
-  top: 64px;
-  width: calc(100vw - 2em);
+  top: 0;
+  width: 100%;
   overflow-x: hidden;
   padding: 2em;
 }
@@ -19,15 +19,19 @@ a {
 
 .info-container {
   text-align: center;
-  margin-bottom: 3em;
+  margin-bottom: 2em;
 }
 
 .flex-column {
   flex-direction: column;
 }
 
-.top-margin {
+.name-form {
   margin-top: 1em !important;
+}
+
+.submit-button {
+  margin-top: 1.25em !important;
 }
 
 .url {

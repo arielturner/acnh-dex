@@ -57,27 +57,27 @@ function Welcome() {
           <div className="content flex-center">
             <div className="flex-center flex-column">
               <div className="info-container">
-                <Typography variant="h1">Welcome!</Typography>
-                <Typography variant="h4" gutterBottom>
+                <Typography variant="h2" gutterBottom>Welcome!</Typography>
+                <Typography variant="h5" gutterBottom>
                   Use this app to keep track of your collectibles in Animal Crossing: New Horizons.
                 </Typography>
-                <Typography variant="h5" gutterBottom>
+                {/* <Typography variant="subtitle1" gutterBottom>
                   Consumes
                   {' '}
                   <a href="https://acnhapi.com/" target="_blank" rel="noreferrer">ACNH API</a>
                   {' '}
                   for collectible metadata.
-                </Typography>
+                </Typography> */}
               </div>
               <Typography variant="body1">Choose your address below.</Typography>
-              <form className="top-margin flex-center flex-column" autoComplete="off" onSubmit={handleSubmit}>
+              <form className="name-form flex-center flex-column" autoComplete="off" onSubmit={handleSubmit}>
                 <div className="flex-center">
                   <Typography className="url" variant="body1">
                     {process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://acnh-dex.herokuapp.com/'}
                   </Typography>
                   <TextField id="name-input" label="Name" variant="outlined" value={name} onChange={handleChange} />
                 </div>
-                <Button type="submit" className="top-margin" variant="contained" color="primary">Go</Button>
+                <Button type="submit" className="submit-button" variant="contained" color="primary">Go</Button>
               </form>
             </div>
           </div>
