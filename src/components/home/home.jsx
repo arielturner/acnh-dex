@@ -49,8 +49,7 @@ function Home() {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            // Suppressing to maintain tab flow when in mobile view.
-            // eslint-disable-next-line jsx-a11y/tabindex-no-positive
+            // Setting to positive integer to maintain tab flow when in mobile view.
             tabIndex={1}
           >
             <MenuIcon />
