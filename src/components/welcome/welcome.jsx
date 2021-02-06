@@ -57,7 +57,7 @@ function Welcome() {
           <div className="content flex-center">
             <div className="flex-center flex-column">
               <div className="info-container">
-                <Typography variant="h2" gutterBottom>Welcome!</Typography>
+                <Typography variant="h4" gutterBottom>Welcome!</Typography>
                 <Typography variant="h5" gutterBottom>
                   Use this app to keep track of your collectibles in Animal Crossing: New Horizons.
                 </Typography>
@@ -75,7 +75,7 @@ function Welcome() {
                   <Typography className="url" variant="body1">
                     {process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://acnh-dex.herokuapp.com/'}
                   </Typography>
-                  <TextField id="name-input" label="Name" variant="outlined" value={name} onChange={handleChange} />
+                  <TextField id="name-input" inputProps={{ 'aria-label': 'user name' }} autoFocus placeholder="Name" variant="outlined" value={name} onChange={handleChange} />
                 </div>
                 <Button type="submit" className="submit-button" variant="contained" color="primary">Go</Button>
               </form>

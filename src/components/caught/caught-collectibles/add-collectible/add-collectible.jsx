@@ -17,6 +17,7 @@ export default function AddCollectible({ category, caughtCollectibles, onAddSele
   const [open, setOpen] = React.useState(false);
   const [availableCollectibles, setAvailableCollectibles] = React.useState([]);
   const [checked, setChecked] = React.useState([]);
+  const [allChecked, setAllChecked] = React.useState(false);
 
   const handleClickOpen = () => {
     toggleLoadingSpinner(true);
@@ -56,11 +57,25 @@ export default function AddCollectible({ category, caughtCollectibles, onAddSele
 
     if (currentIndex === -1) {
       newChecked.push(value);
+      if (newChecked.length === availableCollectibles.length) {
+        setAllChecked(true);
+      }
     } else {
       newChecked.splice(currentIndex, 1);
+      setAllChecked(false);
     }
 
     setChecked(newChecked);
+  };
+
+  const handleSelectAllChange = (event) => {
+    setAllChecked(event.target.checked);
+
+    if (event.target.checked) {
+      setChecked(availableCollectibles.map((c) => c.id));
+    } else {
+      setChecked([]);
+    }
   };
 
   const handleAddSelectedClick = () => {
@@ -76,7 +91,15 @@ export default function AddCollectible({ category, caughtCollectibles, onAddSele
         </Fab>
       </Tooltip>
       <Dialog onClose={handleClose} aria-labelledby="dialog-title" open={open}>
-        <DialogTitle id="dialog-title">{`Add ${category}`}</DialogTitle>
+        <DialogTitle id="dialog-title">
+          {`Add ${category}`}
+          <Checkbox
+            className="select-all-checkbox"
+            checked={allChecked}
+            onChange={handleSelectAllChange}
+            inputProps={{ 'aria-label': 'select all' }}
+          />
+        </DialogTitle>
         <DialogContent dividers>
           <List dense>
             {availableCollectibles.map((collectible) => (

@@ -7,6 +7,10 @@
   .MuiCard-root {
     padding: 10px 0 0 10px !important;
   }
+
+  @media screen and (min-width: 599px) {
+    max-width: calc(100vw - 5.5em - 240px) !important;
+  }
 }
 
 .available-container {

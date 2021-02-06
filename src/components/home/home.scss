@@ -27,8 +27,13 @@
 }
 
 .responsive-bar {
-  z-index: 1202 !important;
+  visibility: hidden;
   width: calc(100vw - 4.6em) !important;
   left: 0 !important;
   box-shadow: none !important;
+
+  @media screen and (max-width: 599px) {
+    visibility: visible;
+    z-index: 1202 !important;
+  }
 }
