@@ -72,7 +72,9 @@ function Welcome() {
               <Typography variant="body1">Choose your address below.</Typography>
               <form className="top-margin flex-center flex-column" autoComplete="off" onSubmit={handleSubmit}>
                 <div className="flex-center">
-                  <Typography className="url" variant="body1">http://localhost:3000/</Typography>
+                  <Typography className="url" variant="body1">
+                    {process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://acnh-dex.herokuapp.com/'}
+                  </Typography>
                   <TextField id="name-input" label="Name" variant="outlined" value={name} onChange={handleChange} />
                 </div>
                 <Button type="submit" className="top-margin" variant="contained" color="primary">Go</Button>
