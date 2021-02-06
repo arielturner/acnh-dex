@@ -18,5 +18,17 @@
 .drawer-content {
   flex-grow: 1;
   padding: 1.15em;
-  width: 100%;
+  width: calc(100% - 240px);
+
+  @media screen and (max-width: 599px) {
+    position: absolute;
+    width: 100%;
+  }
+}
+
+.responsive-bar {
+  z-index: 1202 !important;
+  width: calc(100vw - 4.6em) !important;
+  left: 0 !important;
+  box-shadow: none !important;
 }

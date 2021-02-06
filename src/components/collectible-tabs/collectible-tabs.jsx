@@ -15,9 +15,10 @@ function CollectibleTabs({ bugsComponent, fishComponent, seaCreaturesComponent }
         <Tabs
           value={tabIndex}
           onChange={handleChange}
+          variant="scrollable"
+          scrollButtons="on"
           indicatorColor="primary"
           textColor="primary"
-          centered
         >
           <Tab label="Bugs" />
           <Tab label="Fish" />
