@@ -9,8 +9,7 @@ ACNH Dex is hosted on Heroku at [https://acnh-dex.herokuapp.com/].
 ## Getting started
 Create a .env file in the root directory and add a MONGODB_URI variable with your [MongoDB cluster connection string](https://docs.mongodb.com/guides/cloud/connectionstring/).
 
-Run the following commands:
-
+Run the following commands:<br />
 `npm i`
 
 `npm run start`<br />
