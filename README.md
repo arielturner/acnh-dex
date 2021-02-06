@@ -10,11 +10,11 @@ ACNH Dex is hosted on Heroku at [https://acnh-dex.herokuapp.com/](https://acnh-d
 Create a .env file in the root directory and add a MONGODB_URI variable with your [MongoDB cluster connection string](https://docs.mongodb.com/guides/cloud/connectionstring/).
 
 Run the following commands:<br />
-`npm i`
+1. `npm i`
 
-`npm run start`<br />
+2. `npm run start`<br />
 Starts Node.js server on port 5000.
 
-`npm run start-app`<br />
+3. `npm run start-app`<br />
 Starts React app in development mode.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
