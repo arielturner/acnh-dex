@@ -11,6 +11,7 @@ const userSchema = new Schema({
   collectibles: [collectibleSchema],
 });
 
-userSchema.index({ name: 1 }, { unique: true });
+// Add a unique, case-insensitive index for user name.
+userSchema.index({ name: 1 }, { unique: true, collation: { locale: 'en', strength: 1 } });
 
 module.exports = mongoose.model('User', userSchema, 'users');

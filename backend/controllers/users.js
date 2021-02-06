@@ -6,6 +6,7 @@ const User = require('../models/user');
 
 router.get('/:name', (req, res) => {
   User.find({ name: req.params.name })
+    .collation({ locale: 'en', strength: 1 })
     .then((users) => res.json(users))
     .catch((err) => res.status(500).json(err));
 });
