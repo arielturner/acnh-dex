@@ -61,13 +61,6 @@ function Welcome() {
                 <Typography variant="h5" gutterBottom>
                   Use this app to keep track of your collectibles in Animal Crossing: New Horizons.
                 </Typography>
-                {/* <Typography variant="subtitle1" gutterBottom>
-                  Consumes
-                  {' '}
-                  <a href="https://acnhapi.com/" target="_blank" rel="noreferrer">ACNH API</a>
-                  {' '}
-                  for collectible metadata.
-                </Typography> */}
               </div>
               <Typography variant="body1">Choose your address below.</Typography>
               <form className="name-form flex-center flex-column" autoComplete="off" onSubmit={handleSubmit}>
@@ -79,6 +72,11 @@ function Welcome() {
                 </div>
                 <Button type="submit" className="submit-button" variant="contained" color="primary">Go</Button>
               </form>
+              <Typography variant="body2" className="source-url">
+                Created by
+                {' '}
+                <a href="https://github.com/arielturner/acnh-dex" target="_blank" rel="noreferrer">Ariel Turner</a>
+              </Typography>
             </div>
           </div>
         )
