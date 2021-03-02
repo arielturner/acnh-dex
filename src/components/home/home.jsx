@@ -24,13 +24,13 @@ function Home() {
   const drawer = (
     <div className="drawer-container">
       <List>
-        <ListItem button key="To Catch" component={Link} to={`/${id}`}>
+        <ListItem button key="To Catch" component={Link} to={`/${id}`} onClick={handleDrawerToggle}>
           <ListItemIcon>
             <PlaylistAddCheckIcon />
           </ListItemIcon>
           <ListItemText primary="To Catch" />
         </ListItem>
-        <ListItem button key="Caught" component={Link} to={`/${id}/caught`}>
+        <ListItem button key="Caught" component={Link} to={`/${id}/caught`} onClick={handleDrawerToggle}>
           <ListItemIcon>
             <MenuBookIcon />
           </ListItemIcon>
