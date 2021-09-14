@@ -60,7 +60,7 @@ function Home() {
         </Toolbar>
       </AppBar>
       <nav className="drawer">
-        <Hidden smUp implementation="css">
+        <Hidden smUp>
           <Drawer
             variant="temporary"
             anchor="left"
@@ -78,7 +78,7 @@ function Home() {
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden xsDown>
           <Drawer
             variant="permanent"
             open
