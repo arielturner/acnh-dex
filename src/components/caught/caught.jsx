@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { GlobalContext } from '../../global/global-context';
 import CaughtCollectibles from './caught-collectibles/caught-collectibles';
 import CollectibleTabs from '../collectible-tabs/collectible-tabs';
+import HerokuWarning from '../heroku-warning/heroku-warning';
 
 function sortFn(a, b) {
   return a.id > b.id ? 1 : -1;
@@ -89,6 +90,7 @@ class Caught extends React.Component {
 
     return (
       <div>
+        <HerokuWarning/>
         <CollectibleTabs
           bugsComponent={(
             <CaughtCollectibles

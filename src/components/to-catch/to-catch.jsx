@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { GlobalContext } from '../../global/global-context';
 import AvailableCollectibles from './available-collectibles/available-collectibles';
 import CollectibleTabs from '../collectible-tabs/collectible-tabs';
+import HerokuWarning from '../heroku-warning/heroku-warning';
 
 const baseUrl = 'https://acnhapi.com/v1a';
 const currentMonth = new Date().getMonth() + 1;
@@ -90,6 +91,7 @@ class ToCatch extends React.Component {
 
     return (
       <div>
+        <HerokuWarning/>
         <CollectibleTabs
           bugsComponent={
             <AvailableCollectibles category="bug" collectibles={bugs} onCheck={this.handleCheck} />

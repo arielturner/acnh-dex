@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { GlobalContext } from '../../global/global-context';
 import './welcome.scss';
+import HerokuWarning from '../heroku-warning/heroku-warning';
 
 function Welcome() {
   const { setSnackbarMessage, toggleLoadingSpinner } = React.useContext(GlobalContext);
@@ -56,6 +57,7 @@ function Welcome() {
         ? (
           <div className="content flex-center">
             <div className="flex-center flex-column">
+              <HerokuWarning/>
               <div className="info-container">
                 <Typography variant="h4" gutterBottom>Welcome!</Typography>
                 <Typography variant="h5" gutterBottom>
